@@ -8,7 +8,7 @@ import {History} from "../common/History";
 })
 export class HistoryService {
 
-  url = "https://watchstore2.herokuapp.com/api/history";
+  url = "https://watchstore3.herokuapp.com/api/history";
 
   constructor(private httpClient: HttpClient) {
   }

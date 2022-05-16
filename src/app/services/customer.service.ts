@@ -9,7 +9,7 @@ import {Observable} from "rxjs";
 })
 export class CustomerService {
 
-  url = "https://watchstore2.herokuapp.com/api/auth";
+  url = "https://watchstore3.herokuapp.com/api/auth";
 
   constructor(private httpClient: HttpClient) { }
 

@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
 })
 export class ProductService {
 
-  url = 'https://watchstore2.herokuapp.com/api/products';
+  url = 'https://watchstore3.herokuapp.com/api/products';
+  // url = 'http://watchstore2.herokuapp.com/api/products';
 
   constructor(private httpClient: HttpClient) { }
 

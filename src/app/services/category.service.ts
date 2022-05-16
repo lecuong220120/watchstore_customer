@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class CategoryService {
 
-  url = "https://watchstore2.herokuapp.com/api/categories";
+  url = "https://watchstore3.herokuapp.com/api/categories";
 
   constructor(private httpClient: HttpClient) { }
 

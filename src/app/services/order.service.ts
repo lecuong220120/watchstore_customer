@@ -9,9 +9,9 @@ import {Customer} from "../common/Customer";
 })
 export class OrderService {
 
-  url = "https://watchstore2.herokuapp.com/api/orders";
+  url = "https://watchstore3.herokuapp.com/api/orders";
 
-  urlOrderDetail = "https://watchstore2.herokuapp.com/api/orderDetail";
+  urlOrderDetail = "https://watchstore3.herokuapp.com/api/orderDetail";
 
   constructor(private httpClient: HttpClient) { }
 

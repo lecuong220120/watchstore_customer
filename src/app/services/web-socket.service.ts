@@ -12,7 +12,7 @@ export class WebSocketService {
   constructor() { }
 
   public openWebSocket(){
-    this.webSocket = new WebSocket('ws://watchstore2.herokuapp.com/notification');
+    this.webSocket = new WebSocket('ws://watchstore3.herokuapp.com/notification');
 
     this.webSocket.onopen = (event) => {
       // console.log('Open: ', event);

@@ -7,7 +7,7 @@ import { Rate } from '../common/Rate';
 })
 export class RateService {
 
-  url = "https://watchstore2.herokuapp.com/api/rates";
+  url = "https://watchstore3.herokuapp.com/api/rates";
 
   constructor(private httpClient: HttpClient) { }
 
