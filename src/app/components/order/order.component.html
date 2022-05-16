@@ -1,0 +1,135 @@
+<div class="container">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: 15px">
+    <!--  <a class="navbar-brand" href="#">Navbar</a>-->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div style=" justify-content: center; font-size: 17px;" class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav" (click)="onButtonClick($event)">
+        <a class="nav-item nav-link active" (click)="getOrder()" style="font-weight: bold;">Tất cả</a><span
+        class="sr-only">(current)</span>
+        <a class="nav-item nav-link" style="margin-left: 20px;cursor: pointer;font-weight: bold" (click)="findOrder(0)" >Chờ xác nhận</a>
+        <a class="nav-item nav-link" style="margin-left: 20px;cursor: pointer;font-weight: bold" (click)="findOrder(1)" >Đang vận chuyển</a>
+        <a class="nav-item nav-link" style="margin-left: 20px;cursor: pointer;font-weight: bold" (click)="findOrder(2)">Giao thành công</a>
+        <a class="nav-item nav-link" style="margin-left: 20px;cursor: pointer;font-weight: bold" (click)="findOrder(3)" >Hủy đơn hàng</a>
+      </div>
+
+    </div>
+  </nav>
+<!--  <div class="col-lg-12">-->
+
+<!--    <div class="row  d-flex justify-content-center" *ngFor="let item of orders | paginate: { itemsPerPage: 5, currentPage: page}, index as i">-->
+
+<!--      <div class="col-md-12" >-->
+<!--        <div class="card p-4" style="height: 120px; margin-top: 20px">-->
+<!--          <div class="d-flex justify-content-between align-items-center">-->
+<!--            <div class="user d-flex flex-row align-items-center">-->
+<!--&lt;!&ndash;              <ul style="list-style: none;display: flex">&ndash;&gt;-->
+<!--&lt;!&ndash;                <li><i class="fa fa-user" ></i><span style="font-size: 16px;font-weight: 500;margin-left: 4px;">{{customer.name}}</span></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li><i class="fa fa-user" ></i><span style="font-size: 16px;font-weight: 500;margin-left: 4px;">{{customer.name}}</span></li>&ndash;&gt;-->
+<!--&lt;!&ndash;              </ul>&ndash;&gt;-->
+<!--              <i style="margin-left: 20px" class="fa fa-user" ></i><span style="font-size: 16px;font-weight: 500;margin-left: 4px;">{{customer.name}}</span>-->
+<!--              <i style="margin-left: 20px" class="fa fa-clock-o"></i><span style="font-size: 16px;font-weight: 500;margin-left: 4px" >{{item.orderDate|date:'dd-MM-yyyy'}}</span>-->
+<!--              <i style="margin-left: 20px" class="fa fa-phone" ></i> <span style="font-size: 16px;font-weight: 500;margin-left: 4px">{{item.phone}}</span>-->
+<!--              <i style="margin-left: 20px" class="fa fa-money" ></i><span style="font-size: 16px;font-weight: 500;margin-left: 4px"> {{item.amount|currency:'VND'}}</span>-->
+<!--              <i style="margin-left: 20px" class="fa fa-automobile"></i> <span  style="font-size: 16px;font-weight: 500;margin-left: 4px">{{item.status==0?'Chờ xác nhận':(item.status==1?'Đã xác nhận':(item.status==2)?'Giao thành công':'Đã huỷ')}}</span>-->
+<!--            </div>-->
+<!--            <small>              <i class="fa fa-bank" style="margin-left: 20px"></i><span style="font-size: 16px;font-weight: 500;margin-left: 4px">{{item.address}}</span>-->
+<!--            </small>-->
+<!--          </div>-->
+<!--          <div class="action d-flex justify-content-between mt-2 align-items-center">-->
+<!--&lt;!&ndash;            <div class="reply px-4">&ndash;&gt;-->
+<!--&lt;!&ndash;              <small>Remove</small>&ndash;&gt;-->
+<!--&lt;!&ndash;              <span class="dots"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;              <small>Reply</small>&ndash;&gt;-->
+<!--&lt;!&ndash;              <span class="dots"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;              <small>Translate</small>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--            <div class="icons align-items-center" style="display: flex;float: left">-->
+<!--              <button class="btn-outline-success" style="float: right"> <app-order-detail [id]="item.ordersId"></app-order-detail></button>-->
+
+<!--              <button class="btn-outline-danger"  (click)="cancel(item.status==0?item.ordersId:-1)" style="float: right;margin-left: 2%">Hủy đơn hàng</button>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+  <div class="col-lg-12" style="margin-top: 20px">
+    <div class="ps-section__right">
+      <div class="ps-section--account-setting">
+        <div class="ps-section__content">
+          <div class="table-responsive" *ngFor="let item of orders | paginate: { itemsPerPage: 5, currentPage: page}, index as i">
+            <style>
+              .card ul li{
+                margin-left: 5%;
+              }
+            </style>
+            <div class="order-pc card p-4" style="margin-bottom: 2%;padding: 15px;  border: none;box-shadow: 5px 6px 6px 2px #e9ecef;border-radius: 4px;background-color: #F0F8FF" >
+              <ul style="display: flex;list-style: none">
+                <li><i class="fa fa-user"></i><span class="ordertext" style="font-size: 16px;font-weight: 500;margin-left: 4px">{{customer.name}}</span> </li>
+                <li><i class="fa fa-clock-o" ></i><span class="ordertext" style="font-size: 16px;font-weight: 500;margin-left: 4px" >{{item.orderDate|date:'dd-MM-yyyy'}}</span></li>
+                <li><i class="fa fa-phone" ></i> <span class="ordertext" style="font-size: 16px;font-weight: 500;margin-left: 4px">{{item.phone}}</span>
+                </li>
+                <li> <i class="fa fa-automobile" ></i> <span class="ordertext" style="font-size: 16px;font-weight: 500;margin-left: 4px">{{item.status==0?'Chờ xác nhận':(item.status==1?'Đang vận chuyển':(item.status==2)?'Giao thành công':'Đã huỷ')}}</span></li>
+                <li><i class="fa fa-money" ></i><span class="ordertext" style="font-size: 16px;font-weight: 500;margin-left: 4px"> {{item.amount|currency:'VND'}}</span></li>
+              </ul>
+              <div style="margin-top: 1%"><i class="fa fa-bank" style="margin-left: 6%;"></i><span class="ordertext" style="font-size: 16px;font-weight: 500;margin-left: 4px">{{item.address}}</span>
+                <button class="btn-outline-danger btnorder" *ngIf="item.status==0" (click)="cancel(item.status==0?item.ordersId:-1)" style="float: right;margin-left: 2%;padding: 5px 10px;border-radius: 3px">Hủy đơn hàng</button>
+                <button class="btn-outline-success btnorder" style="float: right;padding: 5px 10px;border-radius: 3px"> <app-order-detail [id]="item.ordersId"></app-order-detail></button>
+              </div>
+
+            </div>
+
+
+
+          </div>
+            <table class=" order-moblie table ps-table ps-table--invoices">
+              <thead>
+              <tr>
+                <th>Ngày đặt</th>
+                <th>Tổng tiền</th>
+                <th>Địa chỉ</th>
+                <th>Số điện thoại</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of orders | paginate: { itemsPerPage: 5, currentPage: page}, index as i">
+
+                <td style="width: 15%;">{{item.orderDate|date:'dd/MM/yyyy'}}</td>
+                <td>{{item.amount|currency:'VND'}}</td>
+                <td style="width: 20%;">{{item.address}}</td>
+                <td>{{item.phone}}</td>
+                <td style="width: 17%;">{{item.status==0?'Chờ xác nhận':(item.status==1?'Đang vận chuyển':(item.status==2)?'Giao thành công':'Đã huỷ')}}</td>
+                <td style="text-align: center">
+                  <a style="margin-right: 5px"> <app-order-detail [id]="item.ordersId"></app-order-detail></a>
+                  <a  *ngIf="item.status==0" (click)="cancel(item.status==0?item.ordersId:-1)" ><i class="fa fa-trash"></i></a>
+
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          <div class="row">
+            <div class="col-lg-12">
+              <ul>
+                <pagination-controls
+                  (pageChange)="page = $event"
+                  previousLabel=""
+                  nextLabel=""
+                  class="text-center my-page">
+                </pagination-controls>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

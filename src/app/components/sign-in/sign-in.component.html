@@ -1,0 +1,50 @@
+<div class="card card-container">
+  <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+  <p id="profile-name" class="profile-name-card">Đăng ký thành viên</p>
+  <form class="form-signin" [formGroup]="registerForm">
+    <span id="reauth-email" class="reauth-email"></span>
+    <input
+      [ngClass]="{'is-invalid':registerForm.get('email')?.touched && registerForm.get('email')?.invalid}"
+      formControlName="email"
+      class="form-control" [ngClass]="{'is-invalid':registerForm.get('email')?.touched && registerForm.get('email')?.invalid}"
+      type="text"
+      placeholder="Nhập email..." required autofocus>
+    <small class="invalid-feedback">Email không hợp lệ</small>
+<!--    <input type="email" id="inputEmail" class="form-control" placeholder="Nhập email..." required autofocus>-->
+    <input
+      [ngClass]="{'is-invalid':registerForm.get('name')?.touched && registerForm.get('name')?.invalid}"
+      formControlName="name"
+      class="form-control"
+      type="text"
+      placeholder="Họ tên...">
+    <small class="invalid-feedback">Họ tên không hợp lệ</small>
+    <input
+      [ngClass]="{'is-invalid':registerForm.get('password')?.touched && registerForm.get('password')?.invalid}"
+      id="pass" [type]="show ? 'text' : 'password'"
+      formControlName="password"
+      class="form-control"
+      type="password"
+      placeholder="Mật khẩu">
+    <small class="invalid-feedback">Mật khẩu tối thiểu 6 ký tự</small>
+<!--    <input type="password" id="inputPassword" class="form-control" placeholder="Nhập mật khẩu..." required>-->
+    <input
+      [ngClass]="{'is-invalid':registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid}"
+      formControlName="phone"
+      class="form-control"
+      type="text"
+      placeholder="Số điện thoại">
+    <small class="invalid-feedback">Số điện thoại không hợp lệ</small>
+    <input
+      [ngClass]="{'is-invalid':registerForm.get('address')?.touched && registerForm.get('address')?.invalid}"
+      formControlName="address"
+      class="form-control"
+      type="text"
+      placeholder="Địa chỉ">
+    <small class="invalid-feedback">Địa chỉ không hợp lệ</small>
+    <button (click)="sign_up()" class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Đăng ký</button>
+  </form><!-- /form -->
+  <div>
+    Bạn đã có tài khoản? <a routerLink="/sign-form"  class="forgot-password" style="float: right">Đăng nhập ngay</a>
+  </div>
+
+</div>

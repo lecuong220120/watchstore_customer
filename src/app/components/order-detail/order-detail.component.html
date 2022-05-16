@@ -1,0 +1,50 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Thông tin đơn hàng</h4>
+        <h4 class="float-right">Tổng tiền: {{order.amount|currency:'VND'}}</h4>
+    </div>
+    <div class="modal-body">
+        <table class="table">
+            <thead>
+                <tr style="background-color: #007bff; color: white;">
+
+                    <th>Sản phẩm</th>
+                    <th>Giá</th>
+                    <th class="text-center">Số lượng</th>
+                    <th class="text-center" *ngIf="order.status==2">Đánh giá</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of orderDetails| paginate: { itemsPerPage: 5, currentPage: page}, index as i">
+                    <td><img [src]="item.product.image" alt="Hình ảnh sản phẩm" width="60px" style="cursor: pointer;"
+                            [routerLink]="['/product-detail/'+item.product.productId]"> {{item.product.name}}</td>
+                    <td>{{item.price | currency:'VND'}}</td>
+                    <td class="text-center">{{item.quantity}}</td>
+                    <td class="text-center" *ngIf="order.status==2">
+                        <app-rate
+                            style="cursor: pointer; color: #ffcc23;" title="Đánh giá"
+                            [orderDetail]="item" (editFinish)="finish()">
+                        </app-rate>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      <div class="row">
+        <div class="col-lg-12">
+          <ul>
+            <pagination-controls
+              (pageChange)="page = $event"
+              previousLabel=""
+              nextLabel=""
+              class="text-center my-page">
+            </pagination-controls>
+          </ul>
+        </div>
+      </div>
+    </div>
+</ng-template>
+<a class="orderdetail" (click)="open(content)" title="Chi tiết đơn hàng" style="cursor: pointer;"
+    >Xem chi tiết</a>
+<a  class="orderdetail1" (click)="open(content)" title="Chi tiết đơn hàng" style="cursor: pointer;"
+><i class="fa fa-book"></i></a>
+

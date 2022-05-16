@@ -1,0 +1,103 @@
+<div class="ps-page--simple">
+
+  <div class="ps-section--shopping ps-shopping-cart">
+    <div class="container">
+
+      <div class="ps-section__content">
+        <div class="table-responsive" *ngIf="cartDetails.length>0">
+          <table class="table ps-table--shopping-cart ps-table--responsive">
+            <thead>
+            <tr>
+              <th>Sản phẩm</th>
+              <th>Giá</th>
+              <th>Số lượng</th>
+              <th>Tổng tiền</th>
+              <th>Xóa</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of cartDetails | paginate: { itemsPerPage: 5, currentPage: page}, index as i">
+
+              <td data-label="Sản phẩm">
+                <div class="ps-product--cart">
+                  <div class="ps-product__thumbnail">
+                    <a [routerLink]="['/product-detail/'+item.product.productId]">
+                      <img [src]="item.product.image" alt=""/></a>
+                  </div>
+                  <div class="ps-product__content">
+                    <a [routerLink]="['/product-detail/'+item.product.productId]">{{item.product.name}}</a>
+                  </div>
+                </div>
+              </td>
+              <td style="text-align: center;" class="price" data-label="Giá">
+                {{item.product.price * (1 - item.product.discount / 100) | currency:'VND'}}
+              </td>
+              <td data-label="Số lượng" style="text-align: center;">
+                <button (click)="quantityMinus(item.cartDetailId,myvalue.value)" class="btn btn-sm btn-primary btn-minus" style="width: 30px;height: 28px;margin-right: 8px;padding: 8px 0px;">
+                  <i class="fa fa-minus"></i>
+                </button>
+
+                <input style="text-align: center;padding: 4px;width: 100px"
+                       type="number" min="1"
+                       [value]="item.quantity"
+                       placeholder="0" name="quantity"
+                       [(ngModel)]="item.quantity" #myvalue
+                       (change)="update(item.cartDetailId, item.quantity)"/>
+                <button (click)="quantityPlus(item.cartDetailId,myvalue.value)" class="btn btn-sm btn-primary btn-plus" style="width: 30px;height: 28px;margin-left: 8px;padding: 8px 0px;">
+                  <i class="fa fa-plus"></i>
+                </button>
+              </td>
+              <td style="text-align: center;" data-label="Tổng tiền">
+                {{item.price | currency:'VND'}}
+              </td>
+              <td style="text-align: center;" data-label="Xóa">
+                <a href="javascript:void(0);" (click)="delete(item.cartDetailId)"><i class="icon-trash2"></i></a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="row" style="padding-top: 50px">
+            <div class="col-lg-12">
+              <ul>
+                <pagination-controls
+                  (pageChange)="page = $event"
+                  previousLabel=""
+                  nextLabel=""
+                  class="text-center my-page">
+                </pagination-controls>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-5 mb-5" *ngIf="cartDetails.length==0">
+          <div class="col-8 offset-2 text-center">
+            <h2>Không có sản phẩm nào</h2>
+          </div>
+        </div>
+        <div class="ps-section__cart-actions">
+          <button style="padding: 12px;font-size: 20px;" class="btn-outline-success" [routerLink]="['/all-product']">
+            <i class="icon-arrow-left"></i> Tiếp tục mua hàng</button>
+        </div>
+      </div>
+
+      <div class="ps-section__footer" *ngIf="cartDetails.length>0">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-12 ">
+            <div class="ps-block--shopping-total">
+              <div class="ps-block__header">
+                <h4 class="title">Thanh toán giỏ hàng</h4>
+              </div>
+              <div class="ps-block__header">
+                <p>Tổng tiền <span> {{amountReal | currency:'VND'}}</span></p>
+              </div>
+              <div class="ps-block__content">
+                <h3>Thành tiền <span> {{amount | currency:'VND'}}</span></h3>
+              </div>
+            </div>
+            <button style="float: right;padding: 10px 28px;font-size: 20px;" class="btn-outline-success" [routerLink]="['/checkout']">Thanh toán</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

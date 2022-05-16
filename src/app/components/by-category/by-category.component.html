@@ -1,0 +1,134 @@
+
+<div class="row" style="min-height: 700px !important;" *ngIf="isLoading">
+    <div class="spinner-border text-warning" role="status" style="margin: auto; width: 6em;height: 6em;"></div>
+</div>
+<div class="ps-page--shop" id="shop-sidebar" *ngIf="!isLoading">
+    <div class="container">
+        <div class="ps-layout--shop">
+          <div class="ps-layout__left" style="font-size: 18px">
+            <p style="padding: 10px;font-size: 20px;font-weight: 500" class="m-0">Danh mục sản phẩm</p>
+            <div class="col-lg-13 d-none d-lg-block mb-4 pb-4">
+              <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0  border-top-0 border-bottom-0" id="navbar-vertical">
+                <div  class="navbar-nav w-100 overflow-hidden" >
+                  <select style="padding: 5px 5px;background-color: #F0F8FF" (change)="findByCategory($event)">
+                    <option value="">Tất cả sản phẩm</option>
+                    <option *ngFor="let category of categories" [value] = "category.categoryId" ><a class="nav-item nav-link ">{{category.categoryName}}</a></option>
+                  </select>
+                </div>
+              </nav>
+            </div>
+            <div class="col-lg-13 d-none d-lg-block mb-4 pb-4">
+              <p style="padding: 10px;font-size: 20px;font-weight: 500" class="m-0">Hãng sản xuất</p>
+
+              <nav style="border: solid 1px;" class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical1">
+                <div  class="navbar-nav w-100 overflow-hidden" >
+                  <select style="padding: 5px 5px;background-color: #F0F8FF" (change)="findByManufacturer($event)">
+                    <option value="">Tất cả sản phẩm</option>
+                    <option *ngFor="let item of manufacturers" [value]="item.manufacturerId" (click)="findByManufacturer(item.manufacturerId)"><a class="nav-item nav-link ">{{item.manufacturerName}}</a></option>
+                  </select>
+                </div>
+              </nav>
+            </div>
+            <div class="col-lg-13 d-none d-lg-block mb-4 pb-4">
+              <p style="padding: 10px;font-size: 20px;font-weight: 500" class="m-0">Sắp xếp</p>
+              <nav style="border: solid 1px;" class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical2">
+                <div  class="navbar-nav w-100 overflow-hidden" >
+                  <select style="padding: 5px 5px;background-color: #F0F8FF" [(ngModel)]="keyF" (change)="sort(keyF)">
+                    <option selected value="">Tất cả sản phẩm</option>
+                    <option value="enteredDate">Sản phẩm mới</option>
+                    <option value="priceDesc">Giá giảm dần</option>
+                    <option value="priceAsc">Giá tăng dần</option>
+                  </select>
+                </div>
+              </nav>
+            </div>
+            <div class="ps-shopping__header">
+              <div class="product-page-number">
+                <p>Hiển thị <strong>{{((page-1)*12+12)>products.length?products.length:(page-1)*12+12}}</strong>/<strong>{{products.length}}</strong> sản phẩm</p>
+              </div>
+
+            </div>
+
+          </div>
+            <div class="ps-layout__right">
+                <div class="ps-shopping ps-tab-root">
+
+                    <div class="ps-tabs">
+                        <div class="ps-tab active" id="tab-1">
+                            <div class="ps-shopping-product">
+                                <div class="row">
+                                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6 " *ngFor="let item of products | orderBy : key : reverse | paginate: { itemsPerPage: 12, currentPage: page}">
+                                        <div class="ps-product" *ngIf="item.quantity>0">
+                                            <div class="ps-product__thumbnail">
+                                                <a [routerLink]="['/product-detail/'+item.productId]">
+                                                    <img [src]="item.image" alt="" />
+                                                </a>
+                                                <ul class="ps-product__actions">
+                                                    <li><a href="javascript:void(0);" (click)="addCart(item.productId, item.price*(1 - item.discount/100))" data-toggle="tooltip" data-placement="top" title="Thêm Giỏ Hàng"><i class="icon-bag2"></i></a></li>
+                                                    <li><a [routerLink]="['/product-detail/'+item.productId]" data-toggle="tooltip" data-placement="top" title="Xem Chi Tiết"><i class="icon-eye"></i></a></li>
+                                                    <li><a href="javascript:void(0);" (click)="toggleLike(item.productId)" data-toggle="tooltip" data-placement="top" title="Yêu Thích"><i class="icon-heart"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="ps-product__container">
+                                                <div class="ps-product__content">
+                                                    <a class="ps-product__title" style="text-align: center" [routerLink]="['/product-detail/'+item.productId]">{{item.name}}</a>
+                                                    <div class="ps-product__desc" style="text-align: center" *ngIf="getAvgRate(item.productId)>0">
+                                                        <ngb-rating [rate]="getAvgRate(item.productId)" [starTemplate]="t" [readonly]="true" [max]="5"
+                                                                title="{{getAvgRate(item.productId)}} sao">
+                                                        </ngb-rating>
+
+                                                    </div>
+                                                    <p class="ps-product__price sale" style="text-align: center">
+                                                        <del *ngIf="item.discount != 0">{{item.price|currency:'VND'}}</del>
+                                                        {{item.price*(1 - item.discount/100) | currency:'VND'}}
+                                                    </p>
+                                                </div>
+                                                <div class="ps-product__content hover">
+                                                    <a class="ps-product__title" style="text-align: center" [routerLink]="['/product-detail/'+item.productId]">{{item.name}}</a>
+                                                    <div class="ps-product__desc" style="text-align: center" *ngIf="getAvgRate(item.productId)>0">
+                                                        <ngb-rating [rate]="getAvgRate(item.productId)" [starTemplate]="t" [readonly]="true" [max]="5"
+                                                                title="{{getAvgRate(item.productId)}} sao">
+                                                        </ngb-rating>
+
+                                                    </div>
+                                                    <p class="ps-product__price sale" style="text-align: center">
+                                                        <del *ngIf="item.discount != 0">{{item.price|currency:'VND'}}</del>
+                                                        {{item.price*(1 - item.discount/100) | currency:'VND'}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 50px">
+                                <div class="col-lg-12">
+                                    <ul>
+                                        <pagination-controls
+                                            (pageChange)="page = $event"
+                                            previousLabel=""
+                                            nextLabel=""
+                                            class="text-center my-page">
+                                        </pagination-controls>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- star -->
+<ng-template #t let-fill="fill">
+    <span class="star" [class.full]="fill === 100" style="font-size: 90%;">
+        <span class="half" [style.width.%]="fill">
+            <i class="fa fa-star"></i>
+        </span>
+        <i class="fa fa-star"></i>
+    </span>
+</ng-template>
