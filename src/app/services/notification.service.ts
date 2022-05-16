@@ -7,7 +7,7 @@ import { Notification } from '../common/Notification';
 })
 export class NotificationService {
 
-  url = 'https://watchstore1.herokuapp.com/api/notification';
+  url = 'https://watchstore2.herokuapp.com/api/notification';
 
   constructor(private http: HttpClient) { }
 

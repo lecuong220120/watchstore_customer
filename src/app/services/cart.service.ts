@@ -9,8 +9,8 @@ import { CartDetail } from '../common/CartDetail';
 })
 export class CartService {
 
-  urlCart = 'https://watchstore1.herokuapp.com/api/cart';
-  urlCartDetail = 'https://watchstore1.herokuapp.com/api/cartDetail';
+  urlCart = 'https://watchstore2.herokuapp.com/api/cart';
+  urlCartDetail = 'https://watchstore2.herokuapp.com/api/cartDetail';
 
   constructor(private httpClient: HttpClient) { }
 

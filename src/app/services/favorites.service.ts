@@ -8,7 +8,7 @@ import { Favorites } from '../common/Favorites';
 })
 export class FavoritesService {
 
-  url = 'https://watchstore1.herokuapp.com/api/favorites';
+  url = 'https://watchstore2.herokuapp.com/api/favorites';
 
   constructor(private httpClient: HttpClient) { }
 

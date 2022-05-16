@@ -10,7 +10,7 @@ import { SessionService } from './session.service';
 })
 export class AuthService {
 
-  url = 'https://watchstore1.herokuapp.com/api/auth/';
+  url = 'https://watchstore2.herokuapp.com/api/auth/';
 
   constructor(private sessionService: SessionService, private http: HttpClient) { }
 

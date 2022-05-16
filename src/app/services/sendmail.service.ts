@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class SendmailService {
 
-  url = 'https://watchstore1.herokuapp.com/api/send-mail'
+  url = 'https://watchstore2.herokuapp.com/api/send-mail'
 
   constructor(private httpClient: HttpClient) { }
 

@@ -6,7 +6,7 @@ import {Manufacturer} from "../common/Manufacturer";
   providedIn: 'root'
 })
 export class ManufacturerService {
-  url = "https://watchstore1.herokuapp.com/api/manufacturer";
+  url = "https://watchstore2.herokuapp.com/api/manufacturer";
   constructor(private httpClient : HttpClient) { }
   getAll() {
     return this.httpClient.get(this.url);
